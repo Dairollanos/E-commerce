@@ -1,0 +1,22 @@
+{% extends "tienda/base.html" %}
+{% load static %}
+
+{% block title %}
+    Productos
+{% endblock %}
+
+{% block content %}
+    <div id="main" class="product-list">
+    <h1>Productos</h1>
+        {% for product in Productos %}
+            <div class="item">
+                <a href="{{ product.get_absolute_url }}">
+                <img src="{% if product.imagen %}{{ product.imagen.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                </a>
+                <a href="{% url 'shop:producto_editar' product.id product.slug %}">{{ product.nombre }}</a>
+                <br>
+                ${{ product.precio }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

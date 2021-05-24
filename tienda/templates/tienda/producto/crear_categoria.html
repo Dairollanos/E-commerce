@@ -1,0 +1,19 @@
+{% extends "tienda/base.html" %}
+{% load static %}
+{% block title %}
+CREAR CATEGORIA
+{% endblock %}
+{% block content %}
+<h1>CREAR CATEGORIA</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ Form.non_field_errors }} <br>
+                <div class="form-group">
+
+                    <label for="{{ Form.nombre.id_for_label }}">Nombre de la categoria:</label> <br>
+                    {{ Form.nombre }} <br>
+                    {{ Form.nombre.errors }}
+                </div>
+                <input type="submit" value="AGREGAR" id="subir" class="btn btn-success">
+            </form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "tienda/base.html" %}
+{% block title %}
+    PDF
+{% endblock %}
+{% block content %}
+    <h1>Esta es tu orden</h1>
+        <ul>
+            <li> {{order.id}} </li>
+            <li> {{order.nombre}} </li>
+            <li> {{order.email}} </li>
+            <li> {{order.direccion}} </li>
+    {% for producto in productos  %}
+            <li> {{producto.producto }} </li>
+            <li> {{producto.precio }} </li>
+            <li> {{producto.cantidad }} </li>
+    {% endfor %}
+            </ul>
+{% endblock %}

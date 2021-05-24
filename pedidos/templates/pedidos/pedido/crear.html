@@ -1,0 +1,95 @@
+{% extends "tienda/base.html" %}
+{% block title %}
+Comprar
+{% endblock %}
+{% block content %}
+    <h1>Comprar</h1>
+    <div class="order-info">
+        <h3>Tu pedido</h3>
+        <ul>
+        {% for item in cart %}
+            <li>
+            {{ item.cantidad }}x {{ item.product.nombre }}
+            <span>${{ item.total_precio|floatformat:2 }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+        <p>Total: ${{ cart.get_total_price|floatformat:2 }}</p>
+    </div>
+
+    {% comment %} <form method="post" class="order-form">
+        {{ form.as_p }}
+        <p><input type="submit" value="Hacer pedido"></p>
+        {% csrf_token %}
+    </form> {% endcomment %}
+    <form method="post">
+        <div id="paypal-button-container"></div>
+        <script src="https://www.paypal.com/sdk/js?client-id=ASCQrGyfkQn4s1TPtM-idDoLQw2DKUXy2Q0yRzN-7BTwX9blzSvj6Ityti6-h6lxcZjr7uBmj54KmeCp&currency=USD"></script>
+        <script>
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getCookie('csrftoken');
+
+            var total = '{{ cart.get_total_price  }}';
+            var url2 = "{% url 'shop:producto_lista' %}"
+            console.log(total)
+            var productos = ''
+            {% for item in cart %}
+                productos = productos + ' {{ item.product.nombre }} x {{ item.cantidad }},'
+            {% endfor %}
+            function CompletarOrden(data){
+                var url = "{% url 'pedidos:pedido_completado' %}"
+                fetch(url, {
+                    method: "POST",
+                    headers:{
+                        'Content-type': 'application/json',
+                        'X-CSRFToken':csrftoken,
+                    },
+                    body: JSON.stringify({'Total': total, 'Productos':productos, 'Data': data})
+                })
+            }
+
+            // Render the PayPal button into #paypal-button-container
+            paypal.Buttons({
+            style: {
+                layout: 'horizontal',
+                color:  'blue',
+            },
+
+                // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    CompletarOrden(data)
+                    alert('Transaccion completada exitosamente');                    
+                    location.href = url2;
+                });
+            }
+        }).render('#paypal-button-container');
+        </script>
+    </form>
+{% endblock %}

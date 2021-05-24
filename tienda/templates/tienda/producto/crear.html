@@ -1,0 +1,44 @@
+{% extends "tienda/base.html" %}
+{% load static %}
+{% block title %}
+CREAR PRODUCTOS
+{% endblock %}
+{% block content %}
+<h1>CREAR PRODUCTO</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ Form.non_field_errors }} <br>
+                <div class="form-group">
+
+                    <label for="{{ Form.nombre.id_for_label }}">Nombre del producto:</label> <br>
+                    {{ Form.nombre }} <br>
+                    {{ Form.nombre.errors }}
+                </div>
+                <div class="form-group">
+
+                    <label for="{{ Form.imagen.id_for_label }}">Imagen:</label> <br>
+                    {{ Form.imagen }} <br>
+                    {{ Form.imagen.errors }}
+                </div>
+                <div class="form-group">
+
+                    <label for="{{ Form.categoria.id_for_label }}">Categoria:</label> <br>
+                    {{ Form.categoria }} <br>
+                    {{ Form.categoria.errors }} <br>
+                    <a href="{% url 'shop:categoria_crear' %}">Crear categoria nueva</a>
+                </div>
+                <div class="form-group">
+
+                    <label for="{{ Form.precio.id_for_label }}">Precio:</label> <br>
+                    {{ Form.precio }} <br>
+                    {{ Form.precio.errors }}
+                </div>
+                <div class="form-group">
+
+                    <label for="{{ Form.descripcion.id_for_label }}">Descripcion:</label> <br>
+                    {{ Form.descripcion }} <br>
+                    {{ Form.descripcion.errors }}
+                </div>
+                <input type="submit" value="AGREGAR" id="subir" class="btn btn-success">
+            </form>
+{% endblock %}

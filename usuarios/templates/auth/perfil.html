@@ -1,0 +1,44 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div id="contenido">
+    <h1>Perfil de {{Perfil.usuario}}</h1>
+    <a href="{% url 'cambiar_contraseña' %}">¿Cambiar contraseña?</a>
+    {% comment %} <a href="{% url 'cambiar_contraseña' %}">¿Deseas cambiar tu contraseña?</a> {% endcomment %}
+     <br>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ Form.non_field_errors }} <br>
+                <div class="form-group">
+
+                    <label for="{{ Form.email.id_for_label }}">Email:</label> <br>
+                    {{ Form.email }} <br>
+                    {{ Form.email.errors }} <br>
+                </div>
+                <div class="form-group">
+
+                    <label for="{{ Form.direccion.id_for_label }}">Direccion:</label> <br>
+                    {{ Form.direccion }} <br>
+                    {{ Form.direccion.errors }} <br>
+                </div>
+                <div class="form-group">
+
+                    <label for="{{ Form.tipo.id_for_label }}">Cambiar tipo de usuario:</label> <br>
+                    {{ Form.tipo }} <br>
+                    {{ Form.tipo.errors }} <br>
+                </div>
+                <input type="submit" value="ACTUALIZAR" id="subir" class="btn btn-success">
+            </form>
+            <br>
+</div>
+            {% if Perfil.tipo == 'Vendedor' %}
+            <div id="opciones_perfil">
+                    <h5 id='texto'> Pon tus mejores productos a la venta YA!</h5> <br>
+                    <a href="{% url 'shop:producto_crear' %}" class="btn btn-success" id='boton'> AGREGAR PRODUCTOS</a> <br>
+                    <a id='texto2' href="{% url 'shop:productos_por_usuario' %}"> - Editar tus productos </a> <br>
+                    <a id='texto2' href="{% url 'pedidos:pedidos_usuario' %}"> - Ver pedidos realizados </a> <br>
+            </div>
+            {% endif %}
+            
+            
+{% endblock content %}
+    
