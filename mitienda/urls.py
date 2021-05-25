@@ -14,13 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, reverse_lazy
+from django.urls import path, include, reverse_lazy, re_path
 from usuarios.views import login_view, logout_view, registrar_view, perfil_view
 
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +33,8 @@ urlpatterns = [
     path('pedidos/', include('pedidos.urls', namespace='pedidos')),
     path('cambiar_contraseña/',auth_views.PasswordChangeView.as_view(success_url=reverse_lazy('cambiar_contraseña_hecho')),name='cambiar_contraseña'),
     path('cambiar_contraseña/hecho/',auth_views.PasswordChangeDoneView.as_view(),name='cambiar_contraseña_hecho'),
+
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
 
 if settings.DEBUG:urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
