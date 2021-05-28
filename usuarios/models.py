@@ -14,6 +14,8 @@ class Perfil(models.Model):
     tipo = models.CharField(max_length=200, choices=opciones)
     email = models.EmailField(null=True, blank=True)
     direccion = models.CharField(max_length=100, blank=True ,null=True)
+    descripcion = models.TextField(blank=True, null=True)
+    contacto = models.PositiveBigIntegerField(blank=True, null=True)
     creado = models.DateTimeField(auto_now_add=True)
     actualizado = models.DateTimeField(auto_now=True)
 

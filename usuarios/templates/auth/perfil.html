@@ -8,6 +8,21 @@
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ Form.non_field_errors }} <br>
+                {% if Perfil.tipo == 'Vendedor' %}
+                <div class="form-group">
+
+                    <label for="{{ Form.descripcion.id_for_label }}">Descripcion del vendedor:</label> <br>
+                    {{ Form.descripcion }} <br>
+                    {{ Form.descripcion.errors }} <br>
+                </div>
+                <div class="form-group">
+
+                    <label for="{{ Form.contacto.id_for_label }}">Numero de telefono:</label> <br>
+                    {{ Form.contacto }} <br>
+                    {{ Form.contacto.errors }} <br>
+                </div>
+                {% endif %}
+                    
                 <div class="form-group">
 
                     <label for="{{ Form.email.id_for_label }}">Email:</label> <br>

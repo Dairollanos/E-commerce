@@ -50,7 +50,7 @@ Comprar
             {% for item in cart %}
                 productos = productos + ' {{ item.product.nombre }} x {{ item.cantidad }},'
             {% endfor %}
-            function CompletarOrden(data){
+            function CompletarOrden(data, actions){
                 var url = "{% url 'pedidos:pedido_completado' %}"
                 fetch(url, {
                     method: "POST",
@@ -58,7 +58,7 @@ Comprar
                         'Content-type': 'application/json',
                         'X-CSRFToken':csrftoken,
                     },
-                    body: JSON.stringify({'Total': total, 'Productos':productos, 'Data': data})
+                    body: JSON.stringify({'Total': total, 'Productos':productos, 'Data': data, 'Acciones': actions})
                 })
             }
 
@@ -84,7 +84,7 @@ Comprar
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     // Show a success message to the buyer
-                    CompletarOrden(data)
+                    CompletarOrden(data, actions)
                     alert('Transaccion completada exitosamente');                    
                     location.href = url2;
                 });

@@ -29,7 +29,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'some_random_default_string')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = ['xDairo.pythonanywhere.com','localhost','127.0.0.1:8000']
+ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['xDairo.pythonanywhere.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -114,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
@@ -128,9 +129,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static/')
 ]
 STATIC_ROOT = '/var/www/xDairo/static'
+
+# STATIC_ROOT = BASE_DIR / 'static'
 
 #Media
 MEDIA_URL = '/media/'

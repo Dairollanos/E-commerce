@@ -32,7 +32,7 @@ class Pedido(models.Model):
         return total_cost - total_cost * (self.descuento / Decimal(100))
 
     def get_absolute_url(self):
-        return reverse('pedidos:pedido_pdf', kwargs={'id': self.id})
+        return reverse('pedidos:detalles_pedidos_usuario', kwargs={'id': self.id})
 
 class PedidoProducto(models.Model):
     pedido = models.ForeignKey(Pedido,related_name='items',on_delete=models.CASCADE)

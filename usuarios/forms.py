@@ -17,4 +17,4 @@ class RegistrarUsuarioForm(UserCreationForm):
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
-        fields = ['email','direccion','tipo']
+        fields = ['email','direccion','tipo', 'descripcion', 'contacto']

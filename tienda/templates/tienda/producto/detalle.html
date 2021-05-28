@@ -7,6 +7,7 @@
     <div class="product-detail">
         <img src="{% if Producto.imagen %}{{ Producto.imagen.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
         <h1>{{ Producto.nombre }}</h1>
+        <h5>{{Producto.usuario.username }}</h5>
         <h2>
         <a href="{{ Producto.category.get_absolute_url }}">
         {{ Producto.categoria }}
@@ -14,10 +15,11 @@
         </h2>
         <p class="price">${{ Producto.precio }}</p>
         <form action="{% url 'carrito:carrito_añadir' Producto.id %}" method="post">
-            {{ CarritoForm }}
+            {{ CarritoForm }} <br>
             {% csrf_token %}
             <input type="submit" value="Añadir al carrito">
         </form>
+        <br>
         {{ Producto.descripcion|linebreaks }}
     </div>
 {% endblock %}

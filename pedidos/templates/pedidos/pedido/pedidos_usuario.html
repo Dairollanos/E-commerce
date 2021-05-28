@@ -10,11 +10,8 @@
     <h1>Pedidos</h1>
         {% for pedido in Pedidos %}
             <ul>
-                <li> <h2> Fecha: {{ pedido.creado }}</h2> </li>
-                <li> <h4>Medio de pago: Paypal</h4> </li>
-                <li> <h4> ID del pedido: {{pedido.pedidoID}} </h4> </li>
-                <li> <h4>Productos: {{ pedido.productos }} </h4> </li>
-                <li> <h4> <strong>TOTAL: ${{ pedido.total }}</strong> </h4> </li>                
+                <li> <h2> <a href="{{ pedido.get_absolute_url }}"> Fecha:  
+                {{ pedido.creado }} </a> </h2> </li>
             </ul>
         {% endfor %}
     </div>
